@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja Virtual - Finalizar Compra</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <ul class="menu">
+            <li><a href="index.html">Produtos</a></li>
+            <li><a href="carrinho.html">Carrinho</a></li>
+            <li><a href="checkout.html" class="active">Finalizar Compra</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1>Finalizar Compra</h1>
+        
+        <!-- Resumo da compra -->
+        <div class="resumo-compra">
+            <h2>Resumo do Pedido</h2>
+            <div id="itens-resumo"></div>
+            <div class="checkout-total">
+                <h3>Valor Total da Compra: R$ <span id="total">0,00</span></h3>
+            </div>
+        </div>
+
+        <form id="checkout-form" action="/finalizar" method="post">
+            <div class="form-group">
+                <label for="nome">Nome Completo:</label>
+                <input type="text" id="nome" name="nome" required 
+                       pattern="[A-Za-zÀ-ÿ\s]{3,}" 
+                       title="Digite seu nome completo (mínimo 3 caracteres)">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="telefone">Telefone:</label>
+                <input type="tel" id="telefone" name="telefone" required
+                       pattern="[\d\s()-]{10,}"
+                       title="Digite um telefone válido">
+            </div>
+            <div class="form-group">
+                <label for="cep">CEP:</label>
+                <input type="text" id="cep" name="cep" required
+                       pattern="[\d]{5}-?[\d]{3}"
+                       title="Digite um CEP válido (00000-000)">
+            </div>
+            <div class="form-group">
+                <label for="endereco">Endereço Completo:</label>
+                <textarea id="endereco" name="endereco" required
+                          minlength="10"
+                          title="Digite seu endereço completo"></textarea>
+            </div>
+            <input type="hidden" name="total" id="total-hidden" value="0.00">
+            <div class="botoes">
+                <a href="carrinho.html" class="btn-voltar">&larr; Voltar ao Carrinho</a>
+                <button type="submit" id="btn-confirmar">Confirmar Compra</button>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        // Função para formatar preço em Real
+        function formatarPreco(valor) {
+            return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        // Pega os parâmetros da URL
+        const params = new URLSearchParams(window.location.search);
+        let total = parseFloat(params.get('total') || 0);
+
+        // Atualiza o total
+        document.getElementById('total').textContent = formatarPreco(total).replace('R$', '').trim();
+        document.getElementById('total-hidden').value = total.toFixed(2);
+
+        // Mostra o resumo dos itens
+        const resumoDiv = document.getElementById('itens-resumo');
+        for (let i = 1; i <= 5; i++) {
+            if (params.get('prod' + i) === 'sim') {
+                const qtd = parseInt(params.get('qtd' + i) || 0);
+                if (qtd > 0) {
+                    const nome = params.get('nome' + i);
+                    const preco = parseFloat(params.get('preco' + i));
+                    const subtotal = preco * qtd;
+
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'item-resumo';
+                    itemDiv.innerHTML = `
+                        <p><strong>${nome}</strong></p>
+                        <p>Quantidade: ${qtd}</p>
+                        <p>Preço unitário: ${formatarPreco(preco)}</p>
+                        <p>Subtotal: ${formatarPreco(subtotal)}</p>
+                    `;
+                    resumoDiv.appendChild(itemDiv);
+                }
+            }
+        }
+
+        // Formata o CEP automaticamente
+        document.getElementById('cep').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 5) {
+                value = value.slice(0, 5) + '-' + value.slice(5, 8);
+            }
+            e.target.value = value;
+        });
+
+        // Formata o telefone automaticamente
+        document.getElementById('telefone').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 0) {
+                value = '(' + value;
+                if (value.length > 3) {
+                    value = value.slice(0, 3) + ') ' + value.slice(3);
+                }
+                if (value.length > 10) {
+                    value = value.slice(0, 10) + '-' + value.slice(10, 14);
+                }
+            }
+            e.target.value = value;
+        });
+
+        // Validação do formulário
+        document.getElementById('checkout-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Verifica se há itens no carrinho
+            if (total <= 0) {
+                alert('Seu carrinho está vazio!');
+                return;
+            }
+
+            // Aqui você pode adicionar mais validações se necessário
+            
+            alert('Compra finalizada com sucesso! Em um sistema real, você seria redirecionado para o pagamento.');
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html> 

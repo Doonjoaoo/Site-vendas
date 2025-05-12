@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja Virtual - Carrinho</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <ul class="menu">
+            <li><a href="index.html">Produtos</a></li>
+            <li><a href="carrinho.html" class="active">Carrinho</a></li>
+            <li><a href="checkout.html">Finalizar Compra</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1>Seu Carrinho</h1>
+        
+        <form action="checkout.html" method="get">
+            <div class="carrinho-lista">
+                <!-- Produto 1 -->
+                <div class="carrinho-item" style="display:none" id="item1">
+                    <div class="produto-info">
+                        <h3>Produto 1</h3>
+                        <p>Quantidade: <span id="qtd1">0</span></p>
+                        <p>Preço: R$ 99,90</p>
+                    </div>
+                    <input type="hidden" name="prod1" value="sim">
+                    <input type="hidden" name="qtd1" value="0">
+                    <input type="hidden" name="nome1" value="Produto 1">
+                    <input type="hidden" name="preco1" value="99.90">
+                </div>
+
+                <!-- Produto 2 -->
+                <div class="carrinho-item" style="display:none" id="item2">
+                    <div class="produto-info">
+                        <h3>Produto 2</h3>
+                        <p>Quantidade: <span id="qtd2">0</span></p>
+                        <p>Preço: R$ 149,90</p>
+                    </div>
+                    <input type="hidden" name="prod2" value="sim">
+                    <input type="hidden" name="qtd2" value="0">
+                    <input type="hidden" name="nome2" value="Produto 2">
+                    <input type="hidden" name="preco2" value="149.90">
+                </div>
+
+                <!-- Produto 3 -->
+                <div class="carrinho-item" style="display:none" id="item3">
+                    <div class="produto-info">
+                        <h3>Produto 3</h3>
+                        <p>Quantidade: <span id="qtd3">0</span></p>
+                        <p>Preço: R$ 199,90</p>
+                    </div>
+                    <input type="hidden" name="prod3" value="sim">
+                    <input type="hidden" name="qtd3" value="0">
+                    <input type="hidden" name="nome3" value="Produto 3">
+                    <input type="hidden" name="preco3" value="199.90">
+                </div>
+
+                <!-- Produto 4 -->
+                <div class="carrinho-item" style="display:none" id="item4">
+                    <div class="produto-info">
+                        <h3>Produto 4</h3>
+                        <p>Quantidade: <span id="qtd4">0</span></p>
+                        <p>Preço: R$ 79,90</p>
+                    </div>
+                    <input type="hidden" name="prod4" value="sim">
+                    <input type="hidden" name="qtd4" value="0">
+                    <input type="hidden" name="nome4" value="Produto 4">
+                    <input type="hidden" name="preco4" value="79.90">
+                </div>
+
+                <!-- Produto 5 -->
+                <div class="carrinho-item" style="display:none" id="item5">
+                    <div class="produto-info">
+                        <h3>Produto 5</h3>
+                        <p>Quantidade: <span id="qtd5">0</span></p>
+                        <p>Preço: R$ 129,90</p>
+                    </div>
+                    <input type="hidden" name="prod5" value="sim">
+                    <input type="hidden" name="qtd5" value="0">
+                    <input type="hidden" name="nome5" value="Produto 5">
+                    <input type="hidden" name="preco5" value="129.90">
+                </div>
+
+                <!-- Mensagem de carrinho vazio -->
+                <div class="carrinho-vazio">
+                    <p>Seu carrinho está vazio. <a href="index.html">Continuar comprando</a></p>
+                </div>
+            </div>
+
+            <div class="carrinho-total">
+                <h3>Total da Compra: R$ <span id="total">0,00</span></h3>
+                <input type="hidden" name="total" value="0.00">
+                <div class="botoes">
+                    <a href="index.html" class="btn-voltar">&larr; Continuar Comprando</a>
+                    <button type="submit" class="btn-finalizar">Finalizar Compra</button>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <!-- Script melhorado para mostrar os produtos selecionados -->
+    <script>
+        // Pega os parâmetros da URL
+        const params = new URLSearchParams(window.location.search);
+        let total = 0;
+        let temProdutos = false;
+
+        // Função para formatar preço em Real
+        function formatarPreco(valor) {
+            return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        // Verifica cada produto
+        for (let i = 1; i <= 5; i++) {
+            if (params.get('prod' + i) === 'sim') {
+                const qtd = parseInt(params.get('qtd' + i) || 0);
+                if (qtd > 0) {
+                    const item = document.getElementById('item' + i);
+                    const preco = parseFloat(params.get('preco' + i));
+                    const subtotal = preco * qtd;
+                    
+                    item.style.display = 'block';
+                    document.getElementById('qtd' + i).textContent = qtd;
+                    
+                    // Adiciona o subtotal ao item
+                    const subtotalElement = document.createElement('p');
+                    subtotalElement.textContent = `Subtotal: ${formatarPreco(subtotal)}`;
+                    item.querySelector('.produto-info').appendChild(subtotalElement);
+                    
+                    total += subtotal;
+                    temProdutos = true;
+                }
+            }
+        }
+
+        // Atualiza o total com formatação em Real
+        document.getElementById('total').textContent = formatarPreco(total).replace('R$', '').trim();
+        document.querySelector('input[name="total"]').value = total.toFixed(2);
+
+        // Mostra/esconde mensagem de carrinho vazio
+        const carrinhoVazio = document.querySelector('.carrinho-vazio');
+        const btnFinalizar = document.querySelector('.btn-finalizar');
+        
+        if (temProdutos) {
+            carrinhoVazio.style.display = 'none';
+            btnFinalizar.disabled = false;
+        } else {
+            carrinhoVazio.style.display = 'block';
+            btnFinalizar.disabled = true;
+        }
+    </script>
+</body>
+</html> 

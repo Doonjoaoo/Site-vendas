@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja Virtual - Produtos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <ul class="menu">
+            <li><a href="index.html" class="active">Produtos</a></li>
+            <li><a href="carrinho.html">Carrinho</a></li>
+            <li><a href="checkout.html">Finalizar Compra</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1>Nossos Produtos</h1>
+        
+        <!-- Um único formulário para todos os produtos -->
+        <form action="carrinho.html" method="get" id="produtos-form">
+            <div class="produtos-grid">
+                <!-- Produto 1 -->
+                <div class="produto-card">
+                    <img src="https://via.placeholder.com/200" alt="Produto 1">
+                    <h3>Produto 1</h3>
+                    <p>Descrição detalhada do produto 1</p>
+                    <p class="preco">R$ 99,90</p>
+                    <div class="produto-selecao">
+                        <label>
+                            <input type="checkbox" name="prod1" value="sim">
+                            Adicionar ao Carrinho
+                        </label>
+                        <select name="qtd1">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Produto 2 -->
+                <div class="produto-card">
+                    <img src="https://via.placeholder.com/200" alt="Produto 2">
+                    <h3>Produto 2</h3>
+                    <p>Descrição detalhada do produto 2</p>
+                    <p class="preco">R$ 149,90</p>
+                    <div class="produto-selecao">
+                        <label>
+                            <input type="checkbox" name="prod2" value="sim">
+                            Adicionar ao Carrinho
+                        </label>
+                        <select name="qtd2">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Produto 3 -->
+                <div class="produto-card">
+                    <img src="https://via.placeholder.com/200" alt="Produto 3">
+                    <h3>Produto 3</h3>
+                    <p>Descrição detalhada do produto 3</p>
+                    <p class="preco">R$ 199,90</p>
+                    <div class="produto-selecao">
+                        <label>
+                            <input type="checkbox" name="prod3" value="sim">
+                            Adicionar ao Carrinho
+                        </label>
+                        <select name="qtd3">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Produto 4 -->
+                <div class="produto-card">
+                    <img src="https://via.placeholder.com/200" alt="Produto 4">
+                    <h3>Produto 4</h3>
+                    <p>Descrição detalhada do produto 4</p>
+                    <p class="preco">R$ 79,90</p>
+                    <div class="produto-selecao">
+                        <label>
+                            <input type="checkbox" name="prod4" value="sim">
+                            Adicionar ao Carrinho
+                        </label>
+                        <select name="qtd4">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Produto 5 -->
+                <div class="produto-card">
+                    <img src="https://via.placeholder.com/200" alt="Produto 5">
+                    <h3>Produto 5</h3>
+                    <p>Descrição detalhada do produto 5</p>
+                    <p class="preco">R$ 129,90</p>
+                    <div class="produto-selecao">
+                        <label>
+                            <input type="checkbox" name="prod5" value="sim">
+                            Adicionar ao Carrinho
+                        </label>
+                        <select name="qtd5">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Campos ocultos com informações dos produtos -->
+            <input type="hidden" name="nome1" value="Produto 1">
+            <input type="hidden" name="preco1" value="99.90">
+            <input type="hidden" name="nome2" value="Produto 2">
+            <input type="hidden" name="preco2" value="149.90">
+            <input type="hidden" name="nome3" value="Produto 3">
+            <input type="hidden" name="preco3" value="199.90">
+            <input type="hidden" name="nome4" value="Produto 4">
+            <input type="hidden" name="preco4" value="79.90">
+            <input type="hidden" name="nome5" value="Produto 5">
+            <input type="hidden" name="preco5" value="129.90">
+
+            <div class="carrinho-preview">
+                <h3>Resumo do Carrinho</h3>
+                <p>Itens selecionados: <span id="total-itens">0</span></p>
+                <p>Valor Total: R$ <span id="total-valor">0,00</span></p>
+                <button type="submit" class="btn-ir-carrinho" disabled>Ir para o Carrinho</button>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        // Função para formatar preço em Real
+        function formatarPreco(valor) {
+            return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        // Função para atualizar o resumo do carrinho
+        function atualizarResumo() {
+            let totalItens = 0;
+            let totalValor = 0;
+
+            // Verifica cada produto
+            for (let i = 1; i <= 5; i++) {
+                const checkbox = document.querySelector(`input[name="prod${i}"]`);
+                const select = document.querySelector(`select[name="qtd${i}"]`);
+                const preco = parseFloat(document.querySelector(`input[name="preco${i}"]`).value);
+
+                if (checkbox.checked && select.value > 0) {
+                    totalItens += parseInt(select.value);
+                    totalValor += preco * parseInt(select.value);
+                }
+            }
+
+            // Atualiza os elementos na página
+            document.getElementById('total-itens').textContent = totalItens;
+            document.getElementById('total-valor').textContent = formatarPreco(totalValor).replace('R$', '').trim();
+
+            // Habilita/desabilita o botão do carrinho
+            const btnCarrinho = document.querySelector('.btn-ir-carrinho');
+            btnCarrinho.disabled = totalItens === 0;
+        }
+
+        // Adiciona eventos para os checkboxes e selects
+        document.querySelectorAll('input[type="checkbox"], select').forEach(element => {
+            element.addEventListener('change', function() {
+                const prodId = this.name.replace(/[^\d]/g, '');
+                const checkbox = document.querySelector(`input[name="prod${prodId}"]`);
+                const select = document.querySelector(`select[name="qtd${prodId}"]`);
+
+                // Sincroniza checkbox e select
+                if (this.type === 'checkbox') {
+                    if (!this.checked) {
+                        select.value = '0';
+                    } else if (select.value === '0') {
+                        select.value = '1';
+                    }
+                } else { // select
+                    checkbox.checked = select.value > 0;
+                }
+
+                // Atualiza o card do produto
+                const card = this.closest('.produto-card');
+                card.classList.toggle('selecionado', checkbox.checked && select.value > 0);
+
+                atualizarResumo();
+            });
+        });
+
+        // Validação do formulário
+        document.getElementById('produtos-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let temProdutos = false;
+            for (let i = 1; i <= 5; i++) {
+                const checkbox = document.querySelector(`input[name="prod${i}"]`);
+                const select = document.querySelector(`select[name="qtd${i}"]`);
+                
+                if (checkbox.checked && select.value > 0) {
+                    temProdutos = true;
+                    break;
+                }
+            }
+
+            if (!temProdutos) {
+                alert('Selecione pelo menos um produto para continuar!');
+                return;
+            }
+
+            this.submit();
+        });
+
+        // Inicializa o resumo
+        atualizarResumo();
+    </script>
+</body>
+</html>
