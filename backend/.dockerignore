@@ -1,0 +1,12 @@
+node_modules
+npm-debug.log
+
+# Banco local fora do volume
+*.sqlite
+
+# Pastas que não precisam no build
+.git
+.DS_Store
+**/tmp
+
+
